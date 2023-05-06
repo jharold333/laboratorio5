@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/new/images">
+        <file>Imagenes/Personaje.png</file>
+        <file>Imagenes/Muro irrompible.png</file>
+        <file>Imagenes/Muro romplible.png</file>
+    </qresource>
+</RCC>
