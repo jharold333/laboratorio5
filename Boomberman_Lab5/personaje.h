@@ -11,7 +11,7 @@ class Personaje : public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 public:
     explicit Personaje(QObject *parent = nullptr);
-
+    int velocidad;
     QRectF boundingRect() const;
     void advance(int phase);
 
@@ -27,6 +27,16 @@ public:
 
     int getPosY() const;
     void setPosY(int value);
+
+    void arriba();
+    void abajo();
+    void izquierda();
+    void derecha();
+
+
+    int getVelocidad() const;
+    void setVelocidad(int newVelocidad);
+
 
 signals:
 

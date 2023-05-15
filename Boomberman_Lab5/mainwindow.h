@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+  #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -9,6 +9,7 @@
 #include <QVector>
 #include <QList>
 #include <QPainter>
+#include <QFile>
 
 
 #include <obstaculo.h>
@@ -41,8 +42,13 @@ public:
     void set_window();
 
 
-    bool colisiones();
+
+
+
+    bool Colisiones();
     void onUpdate();
+    bool EvaluarColision();
+    bool EvaluarColision2();
 
     QVector<Obstaculo *> Muros;
     QList<Obstaculo *> Muros2;

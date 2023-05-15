@@ -1,22 +1,28 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <ctime>
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-//    escena = new QGraphicsScene(this);
-//    escena->setSceneRect(0,0,0,0);
-//    ui->graphicsView->setScene(escena);
-
+    /*
+    escena = new QGraphicsScene(this);
+    escena->setSceneRect(0,0,0,0);
+    ui->graphicsView->setScene(escena);
+*/
     tiempo = new QTimer();
 
     set_window();
     CrearMapa(5);
     Posx=40, Posy=40;
     creacionPersonaje();
-    //colisiones();
+    //Colisiones();
+
+
 
     connect(tiempo, &QTimer::timeout, this, &MainWindow::onUpdate);
 
@@ -88,6 +94,16 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
     if ( i->key() == Qt::Key_D ){
         Posx+=5;
         principal->setPos(Posx,Posy);
+        if(!EvaluarColision() and !EvaluarColision2()){
+                    principal->derecha();
+
+                    if(EvaluarColision() or EvaluarColision2()){
+                        principal->izquierda();
+                    }
+
+                }
+
+
 
         qDebug() <<"Derecha"<<endl;
     }
@@ -95,17 +111,49 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         Posx-=5;
         principal->setPos(Posx,Posy);
 
+        if(!EvaluarColision() and !EvaluarColision2()){
+                    principal->izquierda();
+
+                    if(EvaluarColision() or EvaluarColision2()){
+                        principal->derecha();
+                    }
+
+                }
+
+
         qDebug() <<"Izquierda"<<endl;
     }
     if ( i->key() == Qt::Key_S ){
         Posy+=5;
         principal->setPos(Posx,Posy);
 
+        if(!EvaluarColision() and !EvaluarColision2()){
+                    principal->abajo();
+
+                    if(EvaluarColision() or EvaluarColision2()){
+                        principal->arriba();
+                    }
+
+                }
+
+
+
         qDebug() <<"Abajo"<<endl;
     }
     if ( i->key() == Qt::Key_W ){
         Posy-=5;
         principal->setPos(Posx,Posy);
+
+        if(!EvaluarColision() and !EvaluarColision2()){
+                    principal->arriba();
+
+                    if(EvaluarColision() or EvaluarColision2()){
+                        principal->abajo();
+                    }
+
+                }
+
+
         qDebug() <<"Arriba"<<endl;
     }
 
@@ -129,18 +177,81 @@ void MainWindow::set_window()
     setWindowTitle("Bomberman");
 }
 
-//bool MainWindow::colisiones()
-//{
-//    bool bandera=false;
-//    QList<QGraphicsItem *> colision = escena->collidingItems(principal);
-//    if(principal->getPosY()==Muros){
-//        bandera=true;
-//    }
-//    return bandera;
-//}
-
-void MainWindow::onUpdate()
+bool MainWindow::EvaluarColision()
 {
+    QVector<Obstaculo*>::Iterator it;
+    for(it = Muros.begin(); it != Muros.end();it++){
+        if((*it)->collidesWithItem(principal))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool MainWindow::EvaluarColision2()
+{
+    QList<Obstaculo*>::Iterator it;
+    for(it=Muros2.begin();it!= Muros2.end();it++){
+        if((*it)->collidesWithItem(principal))
+        {
+            return true;
+        }
+    }
+    return false;
+
+}
+/*
+    sound = new QMediaPlayer();
+    sound->setMedia();
+
+*/
+
+
+
+/*
+bool MainWindow::Colisiones()
+{
+    bool bandera=false;
+    QList<QGraphicsItem *> colision = escena->collidingItems(principal);
+    if(principal->getPosY()){
+        bandera=true;
+    }
+    return bandera;
+}
+*/
+
+/*
+bool Colisiones(const Personaje& Personaje, const Obstaculo& Obstaculo){
+    if(Personaje.getPosx()< Obstaculo.getPx() &&
+       Personaje.getPosx() > Obstaculo.getPx()&&
+       Personaje.getPosY()< Obstaculo.getPy() &&
+       Personaje.getPosY() > Obstaculo.getPy()){
+       return true; //hay colision
+
+            }
+        return false;// no hay colision
+}
+*/
+/*
+bool MainWindow::Colisiones(){
+    QList<Muros*>::Iterator it;
+    for(it=Muros.begin();it!= Muros.end();it++){
+        if((*it)->collidesWithItem(Personaje))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+*/
+
+
+
+
+
+
+void MainWindow::onUpdate(){
     escena->advance();
     QList<QGraphicsItem *> colisiones = escena->collidingItems(principal);
     if(!colisiones.isEmpty()){
@@ -151,8 +262,8 @@ void MainWindow::onUpdate()
         Obstaculo *muros = dynamic_cast<Obstaculo *>(colisiones[0]);
         if(muros){
             escena->removeItem(muros);
-            //personaje->setVx(0);
-           //personaje->setVy(0);
+            //principal->setVx(0);
+            //principal->setVy(0);
         }
     }
 }
