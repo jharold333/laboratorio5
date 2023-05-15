@@ -25,7 +25,7 @@ Personaje::Personaje(float _px, float _py)
     Posx = _px;
     Posy = _py;
 }
-/*
+
 int Personaje::getPosY() const
 {
     return Posy;
@@ -46,8 +46,8 @@ void Personaje::setPosx(int value)
     Posx = value;
 
 }
-*/
 
+/*
 int Personaje::getVelocidad() const
 {
     return velocidad;
@@ -88,3 +88,4 @@ void Personaje::derecha()
 }
 
 
+*/

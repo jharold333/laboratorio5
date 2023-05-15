@@ -94,7 +94,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
     if ( i->key() == Qt::Key_D ){
         Posx+=5;
         principal->setPos(Posx,Posy);
-        if(!EvaluarColision() and !EvaluarColision2()){
+  /*      if(!EvaluarColision() and !EvaluarColision2()){
                     principal->derecha();
 
                     if(EvaluarColision() or EvaluarColision2()){
@@ -104,13 +104,13 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
                 }
 
 
-
+*/
         qDebug() <<"Derecha"<<endl;
     }
     if ( i->key() == Qt::Key_A ){
         Posx-=5;
         principal->setPos(Posx,Posy);
-
+/*
         if(!EvaluarColision() and !EvaluarColision2()){
                     principal->izquierda();
 
@@ -119,14 +119,14 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
                     }
 
                 }
-
+*/
 
         qDebug() <<"Izquierda"<<endl;
     }
     if ( i->key() == Qt::Key_S ){
         Posy+=5;
         principal->setPos(Posx,Posy);
-
+/*
         if(!EvaluarColision() and !EvaluarColision2()){
                     principal->abajo();
 
@@ -136,14 +136,14 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
 
                 }
 
-
+*/
 
         qDebug() <<"Abajo"<<endl;
     }
     if ( i->key() == Qt::Key_W ){
         Posy-=5;
         principal->setPos(Posx,Posy);
-
+/*
         if(!EvaluarColision() and !EvaluarColision2()){
                     principal->arriba();
 
@@ -153,7 +153,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
 
                 }
 
-
+*/
         qDebug() <<"Arriba"<<endl;
     }
 

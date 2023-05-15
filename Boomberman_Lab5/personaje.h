@@ -27,7 +27,7 @@ public:
 
     int getPosY() const;
     void setPosY(int value);
-
+/*
     void arriba();
     void abajo();
     void izquierda();
@@ -37,7 +37,7 @@ public:
     int getVelocidad() const;
     void setVelocidad(int newVelocidad);
 
-
+*/
 signals:
 
 private:
